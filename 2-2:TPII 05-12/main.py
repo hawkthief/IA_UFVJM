@@ -10,6 +10,8 @@ def cls():
   os.system('cls' if os.name=='nt' else 'clear')
   lambda: os.system('cls')
 
+cls()
+
 class tree:
   def __init__(self, rootinfo):
     self.root = node(rootinfo)
@@ -156,8 +158,8 @@ def dfs(arvore, objetivo):
   return path, disp, result;
 
 def bfs(arvore, objetivo):
-  path = ['a']
-  disp = ['a']
+  path = ['-']
+  disp = ['-']
   def breadth(camada, objetivo):
     proxcamada = []
     for x in camada:
@@ -175,7 +177,7 @@ def bfs(arvore, objetivo):
     result =True
   else:
     result = breadth(proxcamada,objetivo)
-
+  
   return path, disp, result
 
 def astar(arvore,objetivo):
@@ -242,24 +244,15 @@ def astar(arvore,objetivo):
         return False
 
     def mandis(self,atual,alvo):
-      al = []
-      
-      for x in alvo:
-        for y in x:
-          al.append(y)
-
       cont = 0
-      for i in al:
-        n = True
-        for x in atual:
-          a = 0
-          for y in x:
-            if y == i:
-              cont += a
-              n = False
-            a +=1
-          if n:
-            cont += 1
+      for x in range(len(alvo)):
+        for y in range(len(alvo)):
+          for i in range(len(alvo)):
+            for j in range(len(alvo)):
+              if atual[x][y]==alvo[i][j]:
+                cont =+abs(x-i)
+                cont =+abs(y-j)
+
       return cont
   
   def estrela(r,objetivo):
@@ -436,8 +429,8 @@ def geraarvore():
 
   OBJ = True
 
-  #mat = [[1,2,3],[4,5,6],[0,7,8]]
-  mat = [[4,1,2],[8,0,3],[5,7,6]] 
+  mat = [[1,2,3],[4,5,6],[0,7,8]]
+  #mat = [[4,1,2],[8,0,3],[5,7,6]] 
   #mat = cp.deepcopy(resolver.fill()) 
 
   arv = tree(mat)
@@ -461,10 +454,10 @@ def geraarvore():
 arv = geraarvore()
 objetivo = cp.deepcopy(genobj(3))
 
-lis = bfs(arv,objetivo)
+#lis = bfs(arv,objetivo)
 #lis = dfs(arv,objetivo)
 #lis = astar(arv, objetivo)
-#lis = greedy(arv,objetivo)
+lis = greedy(arv,objetivo)
 
-cls()
+
 imprimelista(lis)
